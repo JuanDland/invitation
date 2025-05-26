@@ -1,7 +1,11 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Parallax } from "react-scroll-parallax";
-
+import Lights from "@/components/Lights";
+import Arrow from "@/components/Arrow";
+import Circle from "@/components/Circle";
+import MainMessage from "@/components/MainMessage";
+import Asistence from "@/components/Asistence";
 
 export default function InvitationPage() {
 
@@ -9,17 +13,19 @@ export default function InvitationPage() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-        // document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.body.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, []);
 
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false);
-        }, 1000);
+        }, 100);
     }, []);
 
+
+
     return (
-        <div className="relative bg-gradient-to-b from-[#211F1B] to-[#242017]">
+        <div className="relative bg-gradient-to-b h-screen">
 
             {
                 isLoading && (
@@ -29,14 +35,14 @@ export default function InvitationPage() {
                 )
             }
             {/* Contenedor con suficiente scroll */}
-            <div className="h-[500vh] sm:h-[600vh] relative">
-
+            <div className="h-[3200px] relative bg-gradient-to-b from-[#211F1B] via-[#251f10] to-[#211F1B]">
+                <Lights />
                 {/* BLOQUE 1 - Nombre del invitado */}
                 <div className="sticky top-0 h-[100dvh] flex flex-col items-center justify-center">
 
                     <Parallax
                         translateY={[0, -200]}
-                        className="absolute border"
+                        className="absolute"
                         startScroll={100}
                         endScroll={300}
                     >
@@ -46,8 +52,8 @@ export default function InvitationPage() {
                             startScroll={700}
                             endScroll={1000}
                         >
-                            <p className="text-center text-white text-4xl md:text-6xl">
-                                Nombre de invitado
+                            <p className="text-center text-white text-6xl md:text-6xl font-title px-6">
+                                Eduard Osorio
                             </p>
                         </Parallax>
                     </Parallax>
@@ -57,7 +63,7 @@ export default function InvitationPage() {
                         scale={[1, 0]}
                         startScroll={700}
                         endScroll={1000}
-                        className="absolute border"
+                        className="absolute"
                     >
 
                         <Parallax
@@ -66,56 +72,28 @@ export default function InvitationPage() {
                             endScroll={400}
                             easing="easeOutQuad"
                         >
-                            <p className="text-center text-white text-4xl md:text-6xl mt-30">
-                                queremos que nos acompañes a celebrar los
+                            <p className="text-center text-white text-2xl md:text-6xl mt-30 font-raleway px-6">
+                                Queremos que nos acompañes a celebrar los
                             </p>
                         </Parallax>
                     </Parallax>
 
-                    <div className="overflow-hidden absolute border w-full h-full flex items-center justify-center">
-
-                        <Parallax
-                            scale={[5, 1]}
-                            opacity={[0, 1]}
-                            startScroll={700}
-                            endScroll={1200}
-                        >
-                            <Parallax
-                                translateY={[0, -40]}
-                                startScroll={1400}
-                                endScroll={1700}
-                            >
-                                <Parallax
-                                    opacity={[1, 0]}
-                                    startScroll={2300}
-                                    endScroll={2600}
-                                >
-                                    <h1 className="text-8xl md:text-[12rem] font-bold text-center text-[#DBB90B]">
-                                        50
-                                    </h1>
-
-                                    <h1 className="text-6xl md:text-8xl font-bold text-center text-[#DBB90B]">
-                                        Años
-                                    </h1>
-                                </Parallax>
-                            </Parallax>
-                        </Parallax>
-                    </div>
-
                     <Parallax
-                        opacity={[0, 1]}
-                        startScroll={1400}
-                        endScroll={1700}
+                        opacity={[1, 0]}
+                        startScroll={500}
+                        endScroll={700}
+                        className="absolute bottom-5"
                     >
-                        <Parallax
-                            opacity={[1, 0]}
-                            startScroll={2300}
-                            endScroll={2600}
-                        >
-                            <p className="text-center text-white text-3xl md:text-5xl font-light mt-50">de</p>
-                            <p className="text-center text-white text-4xl md:text-6xl font-semibold mt-4">Carlos Jimenez</p>
-                        </Parallax>
+                        <Arrow />
                     </Parallax>
+
+                    <MainMessage />
+                </div>
+
+            </div>
+            <div className="h-[4000px] bg-[#DBB554] relative">
+
+                <div className="sticky top-0 h-[100dvh] flex flex-col items-center justify-center">
 
                     <div className="absolute top-0 w-full h-full flex items-center justify-center">
                         <Parallax
@@ -126,10 +104,10 @@ export default function InvitationPage() {
                         >
                             <Parallax
                                 opacity={[1, 0]}
-                                startScroll={3300}
-                                endScroll={3600}
+                                startScroll={3600}
+                                endScroll={3900}
                             >
-                                <p>Se celebrara el 29 de Julio desde las <b>7:00pm</b></p>
+                                <p className="text-center text-[#524400] text-3xl font-title px-4">mensaje personalizado</p>
                             </Parallax>
                         </Parallax>
                     </div>
@@ -138,33 +116,54 @@ export default function InvitationPage() {
                         <Parallax
                             scale={[0, 1]}
                             opacity={[0, 1]}
-                            startScroll={3000}
-                            endScroll={3500}
+                            startScroll={3600}
+                            endScroll={3900}
                         >
                             <Parallax
                                 opacity={[1, 0]}
-                                startScroll={4000}
-                                endScroll={4300}
+                                startScroll={4500}
+                                endScroll={4800}
                             >
-                                <p>En Estadero Alto Bonito, Mariquita</p>
-                                <p>Mapa</p>
+                                <p className="text-center text-[#524400] text-3xl font-raleway px-4">Se celebrará el <b>29 de Julio</b> desde las <b>7:00pm</b></p>
                             </Parallax>
                         </Parallax>
                     </div>
 
-                    <div className="absolute top-0 w-full h-full flex items-center justify-center">
+                    <div className="absolute top-0 w-full h-full flex items-center justify-center z-30">
                         <Parallax
                             scale={[0, 1]}
                             opacity={[0, 1]}
-                            startScroll={4300}
-                            endScroll={4600}
+                            startScroll={4500}
+                            endScroll={4800}
                         >
-                            <p>Agradacemos la confirmación de asistencia</p>
-                            <div>
-                                <p>asist comp</p>
-                            </div>
+                            <Parallax
+                                opacity={[1, 0]}
+                                startScroll={5400}
+                                endScroll={5700}
+                            >
+                                <p className="text-center text-[#524400] text-xl font-raleway px-4">En</p>
+                                <p className="text-center text-[#524400] text-3xl font-raleway px-4 font-bold">Estadero Alto Bonito, Mariquita</p>
+                                {/* SIN API */}
+                                <div className="select-all rounded-xl overflow-hidden mt-">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.3515619440805!2d-74.90093595873385!3d5.207324094792094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e40b5007214e1b9%3A0x800a070a3b4b952!2sEstadero%20Alto%20Bonito!5e0!3m2!1ses!2sar!4v1748291837869!5m2!1ses!2sar"
+                                        width="100%"
+                                        height="100%"
+                                        style={{ border: 0 }}
+                                        allowFullScreen
+                                        loading="lazy"
+                                        referrerPolicy="no-referrer-when-downgrade"
+                                    />
+                                </div>
+                            </Parallax>
                         </Parallax>
                     </div>
+                    <Asistence
+                        animateIn={{
+                            startScroll: 5400,
+                            endScroll: 5700
+                        }}
+                    />
                 </div>
             </div>
         </div>
