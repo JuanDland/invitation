@@ -1,7 +1,7 @@
 'use client';
 import { ComponentProps } from "@/interfaces/component";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Parallax } from "react-scroll-parallax";
 
 
@@ -10,7 +10,34 @@ export default function Asistence({ animateIn }: ComponentProps) {
 
     const [mount, setMount] = useState(1);
     const [mounted, setMounted] = useState(false);
+    const [incrementDisabled, setIncrementDisabled] = useState(false);
+    const [decrementDisabled, setDecrementDisabled] = useState(false);
 
+    const handleIncrement = () => {
+        if (mount < 9) {
+            setMount(mount + 1);
+        }
+    }
+
+    const handleDecrement = () => {
+        if (mount > 1) {
+            setMount(mount - 1);
+        }
+    }
+
+    useEffect(() => {
+        if (mount === 1) {
+            setDecrementDisabled(true);
+        } else {
+            setDecrementDisabled(false);
+        }
+
+        if (mount === 9) {
+            setIncrementDisabled(true);
+        } else {
+            setIncrementDisabled(false);
+        }
+    }, [mount]);
 
     return (
         <div
@@ -24,7 +51,7 @@ export default function Asistence({ animateIn }: ComponentProps) {
                 opacity={[0, 1]}
                 {...animateIn}
                 onProgressChange={(progress) => {
-                    if (progress > 0.6) {
+                    if (progress > 0.5) {
                         setMounted(true);
                     } else {
                         setMounted(false);
@@ -40,18 +67,14 @@ export default function Asistence({ animateIn }: ComponentProps) {
                         <div className="flex items-center justify-center gap-6">
                             <Button
                                 type="decrement"
-                                disabled={false}
-                                onClick={() => {
-                                    setMount(mount - 1);
-                                }}
+                                disabled={decrementDisabled}
+                                onClick={handleDecrement}
                             />
                             <p className="text-center text-[#524400] text-8xl px-4">{mount}</p>
                             <Button
                                 type="increment"
-                                disabled={false}
-                                onClick={() => {
-                                    setMount(mount + 1);
-                                }}
+                                disabled={incrementDisabled}
+                                onClick={handleIncrement}
                             />
                         </div>
                         <p className="text-center text-[#524400] text-2xl font-raleway px-4">{mount === 1 ? "persona" : "personas"} inclyendome</p>
@@ -66,14 +89,14 @@ export default function Asistence({ animateIn }: ComponentProps) {
 
 const Button = ({ type, disabled, onClick }: { type: "increment" | "decrement", disabled: boolean, onClick: () => void }) => (
     <div
-        className={`w-25 h-25 bg-white rounded-full flex items-center justify-center ${disabled ? "opacity-40" : "cursor-pointer hover:opacity-80"}`}
+        className={`w-20 h-20 bg-white rounded-full flex items-center justify-center ${disabled ? "opacity-40" : "cursor-pointer"}`}
         onClick={onClick}
     >
         <Image
             src={type === "increment" ? "/plus.png" : "/minus.png"}
             alt="increment"
-            width={50}
-            height={50}
+            width={40}
+            height={40}
         />
     </div>
 )

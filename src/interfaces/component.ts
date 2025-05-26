@@ -1,5 +1,5 @@
 export interface ComponentProps {
-    animateIn: ParallaxProps;
+    animateIn?: ParallaxProps;
     animateOut?: ParallaxProps;
 }
 

@@ -7,7 +7,7 @@ export default function Lights() {
     }));
 
     return (
-        <div className="fixed w-full h-full top-0 left-0 overflow-hidden border">
+        <div className="fixed w-full h-full top-0 left-0 overflow-hidden">
             {lights.map((light, index) => (
                 <div
                     key={index}

@@ -36,6 +36,7 @@ export default function Circle({ animateIn, animateOut }: ComponentProps) {
                             strokeWidth="0.5"
                             strokeDasharray={circumference}
                             strokeDashoffset={offset}
+                            opacity={0.2}
                         />
                     </svg>
                 </Parallax>

@@ -1,8 +1,5 @@
 .animated-arrow {
-
-
-    animation: arrow-animation 1s infinite ease-in;
-
+    animation: arrow-animation 2s infinite ease-in;
 }
 
 @keyframes arrow-animation {

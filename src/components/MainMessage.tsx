@@ -9,9 +9,9 @@ export default function MainMessage() {
             <div className="overflow-hidden absolute w-full h-full flex items-center justify-center">
 
                 <Parallax
-                    scale={[5, 1]}
+                    scale={[2, 1]}
                     opacity={[0, 1]}
-                    startScroll={700}
+                    startScroll={600}
                     endScroll={1200}
                 >
                     <Parallax
