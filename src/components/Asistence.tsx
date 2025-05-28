@@ -4,14 +4,22 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Parallax } from "react-scroll-parallax";
 
+interface AsistenceProps extends ComponentProps {
+    token: string;
+    name: string;
+    fetchData: () => Promise<void>;
+    isConfirmed: boolean;
+    amount: number;
+}
 
-export default function Asistence({ animateIn }: ComponentProps) {
+export default function Asistence({ animateIn, token, name, fetchData, isConfirmed, amount }: AsistenceProps) {
 
 
     const [mount, setMount] = useState(1);
     const [mounted, setMounted] = useState(false);
     const [incrementDisabled, setIncrementDisabled] = useState(false);
     const [decrementDisabled, setDecrementDisabled] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleIncrement = () => {
         if (mount < 9) {
@@ -39,6 +47,40 @@ export default function Asistence({ animateIn }: ComponentProps) {
         }
     }, [mount]);
 
+
+    const handleConfirm = async () => {
+        try {
+            setIsLoading(true);
+            const response = await fetch('/api/confirm-invitation', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    token,
+                    name,
+                    guests: mount
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || 'Error al confirmar asistencia');
+            }
+
+            await fetchData();
+
+            // Aquí puedes agregar una notificación de éxito o redirección
+            alert('¡Asistencia confirmada con éxito!');
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al confirmar asistencia. Por favor, intente nuevamente.');
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     return (
         <div
             className="absolute top-0 w-full h-full flex items-center justify-center"
@@ -60,27 +102,37 @@ export default function Asistence({ animateIn }: ComponentProps) {
             >
                 <div className="flex flex-col items-center justify-center gap-10">
 
-                    <p className="text-center text-[#524400] text-2xl font-raleway px-4 font-bold">Agradacemos la confirmación de asistencia</p>
+                    {
+                        isConfirmed ? (
+                            <div>
+                                <p className="text-center text-[#524400] text-2xl font-raleway px-4 font-bold">Gracias por confirmar tu asistencia, {amount} {amount === 1 ? "persona" : "personas"}</p>
+                            </div>
+                        ) : (
+                            <>
+                                <p className="text-center text-[#524400] text-2xl font-raleway px-4 font-bold">Agradacemos la confirmación de asistencia</p>
 
-                    <div className="grid gap-4 border rounded-xl p-4">
-                        <p className="text-center text-[#524400] text-2xl font-raleway px-4">Somos</p>
-                        <div className="flex items-center justify-center gap-6">
-                            <Button
-                                type="decrement"
-                                disabled={decrementDisabled}
-                                onClick={handleDecrement}
-                            />
-                            <p className="text-center text-[#524400] text-8xl px-4">{mount}</p>
-                            <Button
-                                type="increment"
-                                disabled={incrementDisabled}
-                                onClick={handleIncrement}
-                            />
-                        </div>
-                        <p className="text-center text-[#524400] text-2xl font-raleway px-4">{mount === 1 ? "persona" : "personas"} inclyendome</p>
-                    </div>
+                                <div className="grid gap-4 border rounded-xl p-4">
+                                    <p className="text-center text-[#524400] text-2xl font-raleway px-4">Somos</p>
+                                    <div className="flex items-center justify-center gap-6">
+                                        <Button
+                                            type="decrement"
+                                            disabled={decrementDisabled}
+                                            onClick={handleDecrement}
+                                        />
+                                        <p className="text-center text-[#524400] text-8xl px-4">{mount}</p>
+                                        <Button
+                                            type="increment"
+                                            disabled={incrementDisabled}
+                                            onClick={handleIncrement}
+                                        />
+                                    </div>
+                                    <p className="text-center text-[#524400] text-2xl font-raleway px-4">{mount === 1 ? "persona" : "personas"} incluyendome</p>
+                                </div>
 
-                    <button className="bg-[#524400] text-white px-4 py-2 rounded-md">Confirmar asistencia de {mount} {mount === 1 ? "persona" : "personas"}</button>
+                                <button className="bg-[#524400] text-white px-4 py-2 rounded-md cursor-pointer" onClick={handleConfirm} disabled={isLoading}>{isLoading ? "Confirmando..." : `Confirmar asistencia de ${mount} ${mount === 1 ? "persona" : "personas"}`}</button>
+                            </>
+                        )
+                    }
                 </div>
             </Parallax>
         </div>

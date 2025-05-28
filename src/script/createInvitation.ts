@@ -4,26 +4,34 @@ import crypto from 'crypto';
 interface CreateInvitationProps {
     nombre: string;
     mensaje?: string;
+    cantidad?: number;
 }
 
 const createInvitation = async (data: CreateInvitationProps) => {
 
-    const token = crypto.randomBytes(16).toString('hex');
+    try {
 
+        const token = crypto.randomBytes(16).toString('hex');
 
-    const prisma = new PrismaClient();
+        const prisma = new PrismaClient();
 
-    const invitation = await prisma.invitado.create({
-        data: {
-            ...data,
-            token,
-        }
-    });
+        await prisma.invitado.create({
+            data: {
+                ...data,
+                token,
+            }
+        });
 
-    console.log(`Invitación creada con éxito: ${invitation.id}`);
+        console.log(`Invitación creada con éxito`);
+        console.log(`https://invitacion.appdland.com/${token}`);
+    } catch (error) {
+        console.error(error);
+    }
+
 }
 
 createInvitation({
-    nombre: 'Juan',
-    mensaje: 'Hola, como estas?',
+    nombre: 'Eduard Osorio & Familia',
+    mensaje: 'Me daría gusto que un gran amigo me pueda acompañar en un momento tan importante para mí',
+    cantidad: 3,
 });

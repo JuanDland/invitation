@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start -p 5000",
+    "lint": "next lint",
+    "create": "tsx src/script/createInvitation.ts"
   },
   "dependencies": {
     "@prisma/client": "^6.8.2",

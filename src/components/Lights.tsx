@@ -1,10 +1,6 @@
+import lights from "@/data/lights.json";
+
 export default function Lights() {
-    // Generar un array de 20 luces con posiciones y tamaños aleatorios
-    const lights = Array.from({ length: 20 }, () => ({
-        size: Math.floor(Math.random() * 5) + 1,
-        x: Math.random() * 100,
-        y: Math.random() * 100
-    }));
 
     return (
         <div className="fixed w-full h-full top-0 left-0 overflow-hidden">

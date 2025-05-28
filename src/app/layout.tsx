@@ -13,8 +13,25 @@ const greatVibes = Great_Vibes({ variable: "--font-great-vibes", subsets: ['lati
 
 
 export const metadata: Metadata = {
-  title: "Invitación",
-  description: "Invitación para cumpleaños",
+  metadataBase: new URL("https://invitacion.appdland.com"),
+  title: "Invitación para cumpleaños",
+  description: "Con cariño te comparto esta invitación",
+  icons: {
+    icon: "/50.png",
+    shortcut: "/logo.png",
+  },
+  openGraph: {
+    title: "Invitación para cumpleaños",
+    description: "Con cariño te comparto esta invitación",
+    images: [
+      {
+        url: "/logo.png",
+        width: 764,
+        height: 400,
+        alt: "Invitación para cumpleaños",
+      }
+    ]
+  }
 };
 
 export default function RootLayout({
@@ -23,7 +40,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" translate="no">
+      <head>
+        <meta name="google" content="notranslate" />
+      </head>
       <body
         className={`${greatVibes.variable} ${raleway.variable} ${geistMono.variable} antialiased`}
       >

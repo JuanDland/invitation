@@ -11,8 +11,10 @@ datasource db {
 model Invitado {
   id         String  @id @default(uuid())
   nombre     String
-  token      String
-  cantidad   Int     @default(2)
+  token      String  @unique
+  cantidad   Int     @default(1)
   confirmado Boolean @default(false)
   mensaje    String?
+
+  @@index([token, nombre])
 }
